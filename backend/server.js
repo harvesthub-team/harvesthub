@@ -12,6 +12,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
+app.use('/api/auth', require('./routes/authRoutes'));
+
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Backend is working!' });
 });
