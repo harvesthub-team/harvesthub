@@ -1,11 +1,23 @@
 const User = require('../models/User');
+const FarmerProfile = require('../models/FarmerProfile');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // Register User
 const registerUser = async (req, res) => {
   try {
-    const { fullName, email, password, role, phone, district } = req.body;
+    const { 
+      fullName, 
+      email, 
+      password, 
+      role, 
+      phone, 
+      district,
+      // Farmer-specific fields
+      farmName,
+      location,
+      description
+    } = req.body;
 
     // Check if user exists
     const existingUser = await User.findOne({ email });
@@ -14,6 +26,28 @@ const registerUser = async (req, res) => {
         success: false,
         message: 'Email already in use'
       });
+    }
+
+    // ✅ Validate farmer-specific required fields
+    if (role === 'farmer') {
+      if (!farmName) {
+        return res.status(400).json({
+          success: false,
+          message: 'Farm name is required for farmers'
+        });
+      }
+      if (!location) {
+        return res.status(400).json({
+          success: false,
+          message: 'Location is required for farmers'
+        });
+      }
+      if (!phone) {
+        return res.status(400).json({
+          success: false,
+          message: 'Phone number is required for farmers'
+        });
+      }
     }
 
     // Hash password
@@ -25,17 +59,56 @@ const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       role: role || 'buyer',
-      phone,
-      district
+      phone: phone || '',
+      district: district || ''
     });
 
+    // If user is a farmer, create farmer profile
+    if (user.role === 'farmer') {
+      const farmerProfile = await FarmerProfile.create({
+        userId: user._id,
+        farmName: farmName,
+        location: location,
+        district: district || 'Not specified',
+        phone: phone, // Phone is now required
+        description: description || `${fullName}'s farm on HarvestHub`,
+        isVerified: false,
+        totalRating: 0,
+        reviewCount: 0
+      });
+
+      return res.status(201).json({
+        success: true,
+        data: {
+          user: {
+            id: user._id,
+            fullName: user.fullName,
+            email: user.email,
+            role: user.role
+          },
+          farmerProfile: {
+            id: farmerProfile._id,
+            farmName: farmerProfile.farmName,
+            location: farmerProfile.location,
+            district: farmerProfile.district,
+            phone: farmerProfile.phone,
+            isVerified: farmerProfile.isVerified
+          }
+        },
+        message: 'Farmer registered successfully with profile created'
+      });
+    }
+
+    // For buyer/admin, just return user
     res.status(201).json({
       success: true,
       data: {
-        id: user._id,
-        fullName: user.fullName,
-        email: user.email,
-        role: user.role
+        user: {
+          id: user._id,
+          fullName: user.fullName,
+          email: user.email,
+          role: user.role
+        }
       },
       message: 'User registered successfully'
     });
