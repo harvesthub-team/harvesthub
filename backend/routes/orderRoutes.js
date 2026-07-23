@@ -9,8 +9,8 @@ const {
   cancelOrder
 } = require('../controllers/orderController');
 
-const authMiddleware = require('../middleware/authMiddleware');
-const roleMiddleware = require('../middleware/roleMiddleware');
+const { authMiddleware } = require('../middleware/authMiddleware');
+const { roleMiddleware }= require('../middleware/roleMiddleware');
 
 const router = express.Router();
 
@@ -18,21 +18,21 @@ const router = express.Router();
 router.post(
   '/',
   authMiddleware,
-  roleMiddleware(['buyer']),
+  roleMiddleware('buyer'),
   createOrder
 );
 
 router.get(
   '/my-orders',
   authMiddleware,
-  roleMiddleware(['buyer']),
+  roleMiddleware('buyer'),
   getMyOrders
 );
 
 router.patch(
   '/:id/cancel',
   authMiddleware,
-  roleMiddleware(['buyer']),
+  roleMiddleware('buyer'),
   cancelOrder
 );
 
@@ -40,14 +40,14 @@ router.patch(
 router.get(
   '/farmer-orders',
   authMiddleware,
-  roleMiddleware(['farmer']),
+  roleMiddleware('farmer'),
   getFarmerOrders
 );
 
 router.patch(
   '/:id/status',
   authMiddleware,
-  roleMiddleware(['farmer']),
+  roleMiddleware('farmer'),
   updateOrderStatus
 );
 
