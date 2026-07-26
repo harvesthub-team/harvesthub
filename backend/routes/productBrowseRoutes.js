@@ -8,11 +8,17 @@ const {
   getProductsByFarmer
 } = require('../controllers/productBrowseController');
 
-// 📍 YOUR ROUTES - All READ operations
-router.get('/', getAllProducts);                         // GET /api/products/browse/
-router.get('/search', searchProducts);                  // GET /api/products/browse/search?q=apple
-router.get('/category/:category', getProductsByCategory); // GET /api/products/browse/category/Vegetables
-router.get('/farmer/:farmerId', getProductsByFarmer);   // GET /api/products/browse/farmer/123
-router.get('/:id', getProductById);                     // GET /api/products/browse/123
+// ⚠️ ORDER MATTERS! Specific routes BEFORE generic :id
+
+// 1️⃣ SPECIFIC ROUTES (no :id parameter)
+router.get('/search', searchProducts);
+router.get('/category/:category', getProductsByCategory);
+router.get('/farmer/:farmerId', getProductsByFarmer);
+
+// 2️⃣ BASE ROUTE
+router.get('/', getAllProducts);
+
+// 3️⃣ GENERIC ROUTE (MUST BE LAST!)
+router.get('/:id', getProductById);
 
 module.exports = router;
