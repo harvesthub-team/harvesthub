@@ -34,8 +34,6 @@ const reviewSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Create indexes for faster queries
-reviewSchema.index({ farmerId: 1, createdAt: -1 });
-reviewSchema.index({ orderId: 1 }, { unique: true });
+
 
 module.exports = mongoose.model('Review', reviewSchema);
