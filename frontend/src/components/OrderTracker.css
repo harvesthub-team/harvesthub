@@ -1,0 +1,127 @@
+.order-tracker {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  width: 100%;
+  padding: 8px 0 2px;
+}
+
+.order-tracker__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+}
+
+.order-tracker__line {
+  position: absolute;
+  top: 20px;
+  left: -50%;
+  width: 100%;
+  height: 2px;
+  background: #ded5bd;
+  z-index: 0;
+}
+
+.order-tracker__step:first-child .order-tracker__line {
+  display: none;
+}
+
+.order-tracker__step--completed .order-tracker__line {
+  background: #1a3a2a;
+}
+
+.order-tracker__circle {
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #ded5bd;
+  background: #fbf9f1;
+  color: #5b5645;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-tracker__step--completed .order-tracker__circle {
+  background: #1a3a2a;
+  border-color: #1a3a2a;
+  color: #ffffff;
+}
+
+.order-tracker__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.order-tracker__text strong {
+  font-size: 0.84rem;
+  color: #211d15;
+}
+
+.order-tracker__text span {
+  font-size: 0.72rem;
+  color: #5b5645;
+  line-height: 1.35;
+}
+
+.order-tracker-cancelled {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #f8e7e2;
+  border: 1px solid #e3b8ad;
+  color: #8f3324;
+}
+
+.order-tracker-cancelled__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #a8482f;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.order-tracker-cancelled p {
+  margin: 4px 0 0;
+  color: #7b4a3f;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 760px) {
+  .order-tracker {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .order-tracker__step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: center;
+    text-align: left;
+    column-gap: 12px;
+  }
+
+  .order-tracker__line {
+    top: -12px;
+    left: 21px;
+    width: 2px;
+    height: 22px;
+  }
+
+  .order-tracker__text {
+    margin-top: 0;
+  }
+}

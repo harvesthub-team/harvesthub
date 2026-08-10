@@ -1,0 +1,136 @@
+.order-details-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #1a3a2a;
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.order-details-heading {
+  align-items: center;
+}
+
+.order-details-card {
+  background: #fbf9f1;
+  border: 1px solid #ded5bd;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.order-details-card h2 {
+  margin: 0 0 18px;
+  font-family: 'Fraunces', serif;
+  color: #1a3a2a;
+  font-size: 1.35rem;
+}
+
+.order-details-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.75fr);
+  gap: 22px;
+  margin-top: 22px;
+  align-items: start;
+}
+
+.order-detail-items {
+  display: grid;
+  gap: 13px;
+}
+
+.order-detail-item {
+  display: grid;
+  grid-template-columns: 62px 1fr auto;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e5ddc8;
+}
+
+.order-detail-item__image {
+  width: 62px;
+  height: 58px;
+  border-radius: 12px;
+  background: #eaf6ef;
+  color: #1a3a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-weight: 800;
+}
+
+.order-detail-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-detail-item > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-detail-item span {
+  color: #5b5645;
+  font-size: 0.8rem;
+}
+
+.order-detail-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 18px;
+}
+
+.order-detail-total strong {
+  font-family: 'Fraunces', serif;
+  color: #1a3a2a;
+  font-size: 1.45rem;
+}
+
+.order-contact-line {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  color: #5b5645;
+  line-height: 1.45;
+}
+
+.order-details-subtitle {
+  margin-top: 26px !important;
+  margin-bottom: 8px !important;
+  font-size: 1.1rem !important;
+}
+
+.order-details-card aside p,
+.order-details-card p {
+  color: #5b5645;
+}
+
+.order-details-contact-name {
+  color: #211d15 !important;
+  font-weight: 700;
+}
+
+.order-payment-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eaf6ef;
+  border: 1px solid #c8ddcd;
+  color: #1a3a2a;
+  border-radius: 999px;
+  padding: 9px 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+@media (max-width: 820px) {
+  .order-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
