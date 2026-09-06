@@ -5,6 +5,13 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import './App.css';
+import { CartProvider } from './context/CartContext';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import MyOrders from './pages/MyOrders';
+import FarmerIncomingOrders from './pages/FarmerIncomingOrders';
+import OrderSuccess from './pages/OrderSuccess';
+import OrderDetails from './pages/OrderDetails';
 
 // Placeholder Home page — Viranja will build the real one
 function Home() {
@@ -30,6 +37,7 @@ function Home() {
 export default function App() {
   return (
     <AuthProvider>
+      <CartProvider>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -46,13 +54,70 @@ export default function App() {
               <div style={{ padding: '2rem', textAlign: 'center' }}>Profile Page (Coming Soon)</div>
             </ProtectedRoute>
           } />
+{/* BUYER ORDER ROUTES */}
 
+<Route
+  path="/cart"
+  element={
+    <ProtectedRoute requiredRole="buyer">
+      <Cart />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/checkout"
+  element={
+    <ProtectedRoute requiredRole="buyer">
+      <Checkout />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/order-success"
+  element={
+    <ProtectedRoute requiredRole="buyer">
+      <OrderSuccess />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/marketplace/my-orders"
+  element={
+    <ProtectedRoute requiredRole="buyer">
+      <MyOrders />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/marketplace/my-orders/:orderId"
+  element={
+    <ProtectedRoute requiredRole="buyer">
+      <OrderDetails />
+    </ProtectedRoute>
+  }
+/>
+
+{/* FARMER ORDER ROUTE */}
+
+<Route
+  path="/farmer/incoming-orders"
+  element={
+    <ProtectedRoute requiredRole="farmer">
+      <FarmerIncomingOrders />
+    </ProtectedRoute>
+  }
+/>
           {/* 
             Role-based Routes — will be added later
             
           */}
         </Routes>
       </BrowserRouter>
+      </CartProvider>
     </AuthProvider>
   );
 }
