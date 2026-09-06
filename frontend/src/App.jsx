@@ -84,7 +84,7 @@ export default function App() {
 />
 
 <Route
-  path="/marketplace/my-orders"
+  path="/my-orders"
   element={
     <ProtectedRoute requiredRole="buyer">
       <MyOrders />
@@ -93,7 +93,7 @@ export default function App() {
 />
 
 <Route
-  path="/marketplace/my-orders/:orderId"
+  path="/my-orders/:orderId"
   element={
     <ProtectedRoute requiredRole="buyer">
       <OrderDetails />

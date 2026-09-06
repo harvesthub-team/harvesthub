@@ -244,7 +244,7 @@ export default function OrderDetails() {
 
           <button
             type="button"
-            onClick={() => navigate("/marketplace/my-orders")}
+            onClick={() => navigate("/my-orders")}
           >
             <ArrowLeft size={18} />
             Back to My Orders
@@ -273,7 +273,7 @@ export default function OrderDetails() {
           <button
             type="button"
             className="order-details-back"
-            onClick={() => navigate("/marketplace/my-orders")}
+            onClick={() => navigate("/my-orders")}
           >
             <ArrowLeft size={18} />
             Back to My Orders

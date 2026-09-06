@@ -254,14 +254,6 @@ export default function MyOrders() {
 
         <section className="my-orders-hero">
           <div className="my-orders-hero-content">
-            <div className="orders-breadcrumb">
-              <span>Marketplace</span>
-
-              <span>›</span>
-
-              <strong>My Orders</strong>
-            </div>
-
             <h1>My Orders</h1>
 
             <p>Track and manage every order from placement to delivery.</p>
@@ -579,7 +571,7 @@ export default function MyOrders() {
                           type="button"
                           className="view-order-button"
                           onClick={() =>
-                            navigate(`/marketplace/my-orders/${order._id}`)
+                            navigate(`/my-orders/${order._id}`)
                           }
                         >
                           View details

@@ -100,7 +100,7 @@ export default function OrderSuccess() {
               <button
                 type="button"
                 className="order-success-primary"
-                onClick={() => navigate("/marketplace/my-orders")}
+                onClick={() => navigate("/my-orders")}
               >
                 View My Orders
                 <ArrowRight size={18} />
@@ -298,7 +298,7 @@ export default function OrderSuccess() {
             <button
               type="button"
               className="order-success-primary"
-              onClick={() => navigate("/marketplace/my-orders")}
+              onClick={() => navigate("/my-orders")}
             >
               View My Orders
               <ArrowRight size={18} />
