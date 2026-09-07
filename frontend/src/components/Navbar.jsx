@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { FaShoppingCart } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
 import Logo from './Logo';
 import './Navbar.css';
 
@@ -18,6 +20,11 @@ export default function Navbar() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+  // ✅ HIDE NAVBAR FOR ADMIN AND FARMER
+  if (isAuthenticated && (user?.role === 'admin' || user?.role === 'farmer')) {
+    return null;
+  }
 
   return (
     <nav className="navbar">
@@ -38,7 +45,7 @@ export default function Navbar() {
           <span></span>
         </button>
 
-        {/* Navigation Links */}
+        {/* Navigation Links — ONLY FOR BUYERS AND PUBLIC */}
         <div className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
           <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
           <Link to="/products" className="nav-link" onClick={closeMenu}>Products</Link>
@@ -54,35 +61,38 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              {/* Role-based dashboard links */}
-              {user?.role === 'farmer' && (
-                <Link to="/farmer/dashboard" className="nav-link" onClick={closeMenu}>
-                  Dashboard
-                </Link>
-              )}
-              {user?.role === 'admin' && (
-                <Link to="/admin/dashboard" className="nav-link" onClick={closeMenu}>
-                  Admin
-                </Link>
-              )}
+              {/* Buyer links only */}
               {user?.role === 'buyer' && (
-                <Link to="/marketplace" className="nav-link" onClick={closeMenu}>
-                  Marketplace
+                <>
+                  <Link to="/my-orders" className="nav-link" onClick={closeMenu}>
+                    My Orders
+                  </Link>
+                </>
+              )}
+
+              {/* Profile circle with tooltip */}
+              <div className="user-avatar-wrapper">
+                <Link to="/profile" className="user-avatar-link">
+                  <div className="user-avatar">
+                    {user?.fullName?.charAt(0) || 'U'}
+                  </div>
+                </Link>
+                <span className="user-tooltip">
+                  {user?.fullName || 'User'}
+                </span>
+              </div>
+
+              {/* Cart icon (Buyer only) */}
+              {user?.role === 'buyer' && (
+                <Link to="/cart" className="nav-link nav-link-cart" onClick={closeMenu}>
+                  <FaShoppingCart size={20} />
                 </Link>
               )}
 
-              <Link to="/profile" className="nav-link" onClick={closeMenu}>
-                Profile
-              </Link>
-
-              <button onClick={handleLogout} className="nav-link nav-link-logout">
-                Logout
+              {/* Logout icon */}
+              <button onClick={handleLogout} className="nav-link nav-link-logout" aria-label="Logout">
+                <FiLogOut size={20} />
               </button>
-
-              {/* User avatar */}
-              <div className="user-avatar">
-                {user?.fullName?.charAt(0) || 'U'}
-              </div>
             </>
           )}
         </div>
