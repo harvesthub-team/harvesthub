@@ -1554,3 +1554,17 @@
     grid-template-columns: 1fr;
   }
 }
+.breadcrumb-link {
+  color: white;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #f0a500;
+}
+
+.breadcrumb-current {
+  color: #f0a500;
+  font-weight: 600;
+}

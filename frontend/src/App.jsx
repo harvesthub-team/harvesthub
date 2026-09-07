@@ -1,40 +1,51 @@
-import { BrowserRouter, Routes, Route, useLocation, Navigate, Link } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { FarmerProvider } from './context/FarmerContext';
-import { CartProvider } from './context/CartContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import Navbar from './components/Navbar';
-import './App.css';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+  Link,
+} from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { FarmerProvider } from "./context/FarmerContext";
+import { CartProvider } from "./context/CartContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
+import "./App.css";
 
 // ===== KAUMINI'S PAGES (Auth) =====
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 // ===== VIRANJA'S PAGES (Browse & Search) =====
-import Home from './pages/Home';
-import Products from './pages/Products';
-import ProductDetail from './pages/ProductDetail';
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 
 // ===== HASHINI'S PAGES (Orders & Cart) =====
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
-import MyOrders from './pages/MyOrders';
-import FarmerIncomingOrders from './pages/FarmerIncomingOrders';
-import OrderSuccess from './pages/OrderSuccess';
-import OrderDetails from './pages/OrderDetails';
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import MyOrders from "./pages/MyOrders";
+import FarmerIncomingOrders from "./pages/FarmerIncomingOrders";
+import OrderSuccess from "./pages/OrderSuccess";
+import OrderDetails from "./pages/OrderDetails";
 
 // ===== FARMER PAGES =====
-import FarmerDashboard from './pages/FarmerDashboard';
-import AddProduct from './pages/AddProduct';
-import EditProduct from './pages/EditProduct';
-import EditFarmerProfile from './pages/EditFarmerProfile';
+import FarmerDashboard from "./pages/FarmerDashboard";
+import AddProduct from "./pages/AddProduct";
+import EditProduct from "./pages/EditProduct";
+import EditFarmerProfile from "./pages/EditFarmerProfile";
+
+// ===== KRISHANI'S PAGES (Reviews & Admin) =====
+import AdminDashboard from "./pages/AdminDashboard";
 
 // ===== SITE CHROME =====
 // Hides Navbar on farmer dashboard area
 function SiteChrome() {
   const location = useLocation();
-  const isFarmerArea = location.pathname.startsWith('/farmer');
-  if (isFarmerArea) return null;
+  const isFarmerArea = location.pathname.startsWith("/farmer");
+  const isAdminArea = location.pathname.startsWith("/admin");
+  if (isFarmerArea || isAdminArea) return null;
   return <Navbar />;
 }
 
@@ -174,6 +185,24 @@ function AppRoutes() {
         />
 
         {/* ============================================
+            ADMIN PROTECTED ROUTES - KRISHANI
+            ============================================ */}
+
+        <Route
+          path="/admin"
+          element={<Navigate to="/admin/dashboard" replace />}
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ============================================
             GENERIC PROTECTED PLACEHOLDER
             ============================================ */}
 
@@ -181,7 +210,9 @@ function AppRoutes() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <div style={{ padding: '2rem', textAlign: 'center' }}>Profile Page (Coming Soon)</div>
+              <div style={{ padding: "2rem", textAlign: "center" }}>
+                Profile Page (Coming Soon)
+              </div>
             </ProtectedRoute>
           }
         />
@@ -204,12 +235,8 @@ function AppRoutes() {
           element={
             <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center">
               <div className="text-center bg-white p-12 rounded-xl shadow-sm max-w-md">
-                <h1 className="text-6xl font-bold text-[#1a3a2a] mb-4">
-                  404
-                </h1>
-                <p className="text-xl text-[#888888] mb-6">
-                  Page not found
-                </p>
+                <h1 className="text-6xl font-bold text-[#1a3a2a] mb-4">404</h1>
+                <p className="text-xl text-[#888888] mb-6">Page not found</p>
                 <Link
                   to="/"
                   className="inline-block px-6 py-3 bg-[#1a3a2a] text-white rounded-lg hover:bg-[#2d5a3a] transition"
