@@ -16,12 +16,12 @@ const {
   updateCategory,
   deleteCategory
 } = require('../controllers/adminController');
-const authMiddleware = require('../middleware/authMiddleware');
-const roleMiddleware = require('../middleware/roleMiddleware');
+const {authMiddleware} = require('../middleware/authMiddleware');
+const {roleMiddleware} = require('../middleware/roleMiddleware');
 
 // ALL ADMIN ROUTES REQUIRE AUTHENTICATION AND ADMIN ROLE
 router.use(authMiddleware);
-router.use(roleMiddleware(['admin']));
+router.use(roleMiddleware('admin'));
 
 // DASHBOARD & ANALYTICS
 router.get('/analytics', getAnalytics);

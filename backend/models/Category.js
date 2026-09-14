@@ -34,7 +34,5 @@ const categorySchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for faster queries
-categorySchema.index({ name: 1 });
 
 module.exports = mongoose.model('Category', categorySchema);

@@ -1,0 +1,249 @@
+/* src/components/OrderProcess.css - AUTO-PLAY VERSION */
+.order-process {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 32px;
+  margin: 0;
+  max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8e8e2;
+  width: 100%;
+}
+
+.order-process__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.order-process__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.order-process__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-process__status-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3d7a5a;
+  background: #eaf6ef;
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+.order-process__container {
+  position: relative;
+  padding: 20px 0;
+}
+
+/* ===== Animated Progress Line ===== */
+.order-process__line {
+  position: absolute;
+  top: 24px;
+  left: 40px;
+  right: 40px;
+  height: 4px;
+  background: #e8e8e2;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.order-process__line-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3d7a5a, #f0a500);
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.order-process__line-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #f0a500;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(240, 165, 0, 0.4);
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
+  50% { transform: translateY(-50%) scale(1.5); opacity: 0.7; }
+}
+
+/* ===== Steps ===== */
+.order-process__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.order-process__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  opacity: 0.35;
+  transform: scale(0.96);
+}
+
+.order-process__step.active {
+  opacity: 1;
+  transform: scale(1);
+  background: var(--step-bg, rgba(61, 122, 90, 0.08));
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* ===== Step Circle ===== */
+.order-process__step-circle {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e8e8e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+.order-process__step.active .order-process__step-circle {
+  background: var(--step-color, #3d7a5a);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+}
+
+.order-process__step-icon {
+  font-size: 1.5rem;
+  transition: transform 0.6s ease;
+}
+
+.order-process__step.active .order-process__step-icon {
+  transform: scale(1.2);
+}
+
+/* ===== Pulse Animation ===== */
+.order-process__step-pulse {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 3px solid var(--step-color, #3d7a5a);
+  animation: stepPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes stepPulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* ===== Step Content ===== */
+.order-process__step-content {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.order-process__step-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+  transition: color 0.3s ease;
+}
+
+.order-process__step.active .order-process__step-title {
+  color: var(--step-color, #3d7a5a);
+}
+
+.order-process__step-description {
+  font-size: 0.9rem;
+  color: #888888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .order-process {
+    padding: 24px 16px;
+    margin: 0;
+  }
+
+  .order-process__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-process__line {
+    left: 24px;
+    right: 24px;
+    top: 20px;
+  }
+
+  .order-process__step {
+    padding: 12px 16px;
+  }
+
+  .order-process__step-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .order-process__step-icon {
+    font-size: 1.2rem;
+  }
+
+  .order-process__step-title {
+    font-size: 1rem;
+  }
+
+  .order-process__step-description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-process {
+    padding: 16px 12px;
+  }
+
+  .order-process__step {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .order-process__line {
+    display: none;
+  }
+
+  .order-process__step-content {
+    width: 100%;
+  }
+
+  .order-process__status-text {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+  }
+}
